@@ -1,0 +1,103 @@
+
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Fund Collection</title>
+
+<style>
+
+body{
+    font-family: Arial, sans-serif;
+    background:#f5f5f5;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+    margin:0;
+}
+
+.container{
+    width:90%;
+    max-width:500px;
+    text-align:center;
+}
+
+.card{
+    background:white;
+    padding:25px;
+    border-radius:15px;
+    margin-bottom:20px;
+    box-shadow:0 4px 15px rgba(0,0,0,0.1);
+}
+
+h1{
+    font-size:24px;
+}
+
+.number{
+    font-size:42px;
+    font-weight:bold;
+    color:#0d6efd;
+}
+
+.amount{
+    color:#198754;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="card">
+<h1>Fund Collection For Batman Zubayer</h1>
+</div>
+
+<div class="card">
+<h3>Total Donors</h3>
+<div class="number" id="donors">0</div>
+</div>
+
+<div class="card">
+<h3>Total Amount Collected</h3>
+<div class="number amount" id="amount">৳0</div>
+</div>
+
+</div>
+
+<script>
+
+const API_URL =
+"https://script.google.com/macros/s/AKfycbxwhFsDOf5UJgSNeBIf5h7IrCIHsk_l9Z5Xf37gEXZLzy98GQahm7wVSTRYesrlq4oL/exec";
+
+async function loadData(){
+
+  try{
+
+    const response = await fetch(API_URL);
+
+    const data = await response.json();
+
+    document.getElementById("donors").innerText =
+      data.donors;
+
+    document.getElementById("amount").innerText =
+      "৳" + data.totalAmount.toLocaleString();
+
+  }catch(err){
+    console.log(err);
+  }
+}
+
+loadData();
+
+setInterval(loadData, 10000);
+
+</script>
+
+</body>
+</html>
